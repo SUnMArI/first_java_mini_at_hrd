@@ -15,7 +15,7 @@ public class Main {
         int start = 0;
         int limite;
         try {
-            BufferedReader reader = new BufferedReader(new FileReader("D:\\HRD\\Java_HRD\\Mini\\mini_project\\src\\main\\java\\util\\setRow.txt"));
+            BufferedReader reader = new BufferedReader(new FileReader("/home/sunmario/Documents/HRD/Mini_Project/java_mini_project/java_mini_project/src/main/java/util/setRow.txt"));
             int data = Integer.parseInt(reader.readLine());
             limite = data;
             reader.close();
