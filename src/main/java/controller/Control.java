@@ -19,7 +19,6 @@ public class Control {
         unitPrice = scanner.nextLine();
         System.out.print("Enter Qty: ");
         qty = scanner.nextLine();
-        pro.insert(new Product(null,name,Double.parseDouble(unitPrice),Integer.parseInt(qty),null));
     }
     public static void updateData(){
 
@@ -28,7 +27,6 @@ public class Control {
         String id;
         System.out.print("Select ID:");
         id = scanner.nextLine();
-        pro.delete(new Product(Integer.parseInt(id),null,null,null,null));
     }
     public static void firstPage(){}
     public static void previous(){}
