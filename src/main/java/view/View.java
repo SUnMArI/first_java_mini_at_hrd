@@ -21,7 +21,7 @@ public class View {
     public static final String ANSI_VIOLETS = "\u001b[36m";
     static Scanner scanner = new Scanner(System.in);
     static Validate validate = new Validate();
-    static CellStyle numberStyle = new CellStyle(CellStyle.HorizontalAlign.center);
+    static CellStyle numberStyle = new CellStyle(CellStyle.HorizontalAlign.CENTER);
     static ProductImplement model = new ProductImplement();
     public  void display(ResultSet resultSet, int limit,int count,int cur_page){
         int current_page = cur_page;
