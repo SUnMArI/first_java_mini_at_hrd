@@ -93,6 +93,41 @@ public class View {
             return;
         }
     }
+    public void display_unsave(ResultSet rs){
+        Table t = new Table(6, BorderStyle.UNICODE_BOX_DOUBLE_BORDER, ShownBorders.ALL);
+        t.setColumnWidth(0, 15, 30);
+        t.setColumnWidth(1, 25, 30);
+        t.setColumnWidth(2, 25, 30);
+        t.setColumnWidth(3, 25, 30);
+        t.setColumnWidth(4, 25, 30);
+        t.setColumnWidth(5, 25, 30);
+        t.addCell(ANSI_BLUE + "Unsave List" + ANSI_RESET, numberStyle,6);
+        t.addCell(ANSI_BLUE + "ID" + ANSI_RESET, numberStyle);
+        t.addCell(ANSI_GREEN + "Product Name" + ANSI_RESET, numberStyle);
+        t.addCell(ANSI_YELLOW + "Unit Price" + ANSI_RESET, numberStyle);
+        t.addCell(ANSI_RED + "QTY" + ANSI_RESET, numberStyle);
+        t.addCell(ANSI_RED + "Imported Date" + ANSI_RESET, numberStyle);
+        t.addCell(ANSI_RED + "Status" + ANSI_RESET, numberStyle);
+        try {
+            while (rs.next()) {
+                t.addCell(ANSI_BLUE + rs.getInt("id") + ANSI_RESET, numberStyle);
+                t.addCell(ANSI_GREEN + rs.getString("name") + ANSI_RESET, numberStyle);
+                t.addCell(ANSI_YELLOW + rs.getString("unit_price") + ANSI_RESET, numberStyle);
+                t.addCell(ANSI_RED + rs.getString("qty") + ANSI_RESET, numberStyle);
+                t.addCell(ANSI_RED + rs.getString("imported_date") + ANSI_RESET, numberStyle);
+                int pro_id = rs.getInt("product_id");
+                if( pro_id != 0){
+                    t.addCell(ANSI_RED + "Update" + ANSI_RESET, numberStyle);
+                }else{
+                    t.addCell(ANSI_RED + "Insert" + ANSI_RESET, numberStyle);
+                }
+            }
+            System.out.println(t.render());
+
+        }catch (Exception ex){
+            System.out.println(ex.getMessage());
+        }
+    }
     public Product update(){
         System.out.print("Updat product name to : ");
         String name = scanner.nextLine();

@@ -143,7 +143,10 @@ public class Main {
                     Control.save();
                 }
                 case "UN" ->{
-                    break;
+                    Control.unsave();
+                    System.out.print("Press enter for continues....");
+                    scanner.nextLine();
+                    scanner.nextLine();
                 }
                 case "BA" ->{
                     break;
