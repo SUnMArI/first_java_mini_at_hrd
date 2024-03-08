@@ -57,22 +57,22 @@ public class View {
     }
     public Product write(){
         System.out.print("Enter name : ");
-        String name = scanner.next();
+        String name = scanner.nextLine();
         try {
             if(model.duplicate(name)){
                 do {
                     System.out.println("Duplicate Product Name");
                     System.out.print("Enter name : ");
-                    name = scanner.next();
+                    name = scanner.nextLine();
                 }while(model.duplicate(name));
             }
         }catch (Exception e){
             System.out.println(e.getMessage());
         }
         System.out.print("Enter Unit Price : ");
-        String unit_price = scanner.next();
+        String unit_price = scanner.nextLine();
         System.out.print("Enter Qty : ");
-        String qty = scanner.next();
+        String qty = scanner.nextLine();
         Product product = new Product(name,Double.parseDouble(unit_price),Integer.parseInt(qty));
         return product;
     }
