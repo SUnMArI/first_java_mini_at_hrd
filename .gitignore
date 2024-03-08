@@ -11,6 +11,7 @@ target/
 *.iws
 *.iml
 *.ipr
+/src/main/java/util/connectionDriver.properties
 
 ### Eclipse ###
 .apt_generated
@@ -33,6 +34,5 @@ build/
 
 ### VS Code ###
 .vscode/
-/src/main/java/util/connectionDriver.properties
 ### Mac OS ###
 .DS_Store
