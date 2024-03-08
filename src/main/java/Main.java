@@ -1,3 +1,4 @@
+import controller.Control;
 import model.dao.ProductImplement;
 import model.dto.Product;
 import util.Validate;
@@ -24,8 +25,8 @@ public class Main {
         }
         int cur_page = 1;
         int totalItems = model.count();
-        int totalPages = (int) Math.ceil((double) totalItems / limite);
         back : do {
+            int totalPages = (int) Math.ceil((double) totalItems / limite);
             View view = new View();
             int count = model.count();
             ResultSet rs = model.selectAll(limite,start);
@@ -38,7 +39,7 @@ public class Main {
             System.out.println("=============================================================================================================");
             System.out.print("Choose Option : ");
             String option = scanner.next();
-            switch (option){
+            switch (option.toUpperCase()){
                 case "F" ->{
                     cur_page=1;
                     start = 0;
@@ -60,7 +61,7 @@ public class Main {
                     if(cur_page != totalPages){
                         cur_page++;
                     }
-                    if(start <totalItems-limite){
+                    if(start < totalItems-limite){
                         start = start+limite;
                         continue back;
                     }else{
@@ -70,14 +71,17 @@ public class Main {
                 }
                 case "L" ->{
                     cur_page = totalPages;
-                    int last = totalItems%limite;
-                    if(limite == 2){
-                        start = totalItems-(totalItems%limite) - 2 ;
-                        continue back;
-                    }else{
+                    if(limite==1){
+                        start = totalItems-1;
+                        System.out.println(start);
+                    }else
+                    if(totalItems%limite ==0){
+                        start = totalItems-(totalItems/limite);
+                        System.out.println("S"+start);
+                    }else {
                         start = totalItems-(totalItems%limite);
-                        continue back;
                     }
+
                 }
                 case "G" ->{
                     System.out.print("Enter page :");
@@ -93,55 +97,25 @@ public class Main {
                     }
                 }
                 case "W" ->{
-                    Product insert = view.write();
-                    model.insert(insert);
-                    System.out.println("Product created successfully");
-                    break;
+                    Control.writeDate();
                 }
                 case "R" ->{
-                    System.out.print("Enter ID to show product : ");
-                    String id = scanner.next();
-                    ResultSet rs_read = model.view(id);
-                    view.read(rs_read);
+                    Control.read();
                     System.out.print("Press enter for continues....");
                     scanner.nextLine();
                     scanner.nextLine();
                     break ;
                 }
                 case "U" ->{
-                    System.out.print("Enter ID to update product : ");
-                    String id = scanner.next();
-                    Product rs_update = view.update();
-                    model.update(Integer.parseInt(id),rs_update);
-                    System.out.println("Product update successfully !!!");
-                    break;
+                    Control.updateData();
                 }
                 case "D" ->{
-                    System.out.print("Enter ID to delete product : ");
-                    String id = scanner.next();
-                    ResultSet rs_delete = model.view(id);
-                    view.read(rs_delete);
-                    System.out.print("Enter Y for confirm or B for back to display :");
-                    String ans = scanner.nextLine();
-                    scanner.nextLine();
-                    switch (ans){
-                        case "y" ->{
-                            model.delete(id);
-                        }
-                        case "b" ->{
-                            continue back;
-                        }
-                    }
-                    break;
+                    Control.deleteDate();
                 }
                 case "S" ->{
-                    System.out.print("Enter product name to search : ");
-                    String search = scanner.next();
-                    ResultSet rs_search = model.search(search);
-                    view.search(rs_search);
-                    break;
+                    Control.search();
                 }
-                case "Se" ->{
+                case "SE" ->{
                     System.out.print("Enter number of Row :");
                     String num_row = scanner.next();
                     scanner.nextLine();
@@ -155,23 +129,26 @@ public class Main {
                     try {
                         BufferedReader reader = new BufferedReader(new FileReader("D:\\HRD\\Java_HRD\\Mini\\mini_project\\src\\main\\java\\util\\setRow.txt"));
                         int data = Integer.parseInt(reader.readLine());
+                        System.out.println(data);
                         limite = data;
+                        cur_page =1;
+                        start=0;
                         reader.close();
+                        continue back;
                     } catch (Exception e) {
-                        throw new RuntimeException(e);
+                        System.out.println(e.getMessage());
                     }
-                    continue back;
                 }
-                case "Sa" ->{
+                case "SA" ->{
+                    Control.save();
+                }
+                case "UN" ->{
                     break;
                 }
-                case "Un" ->{
+                case "BA" ->{
                     break;
                 }
-                case "Ba" ->{
-                    break;
-                }
-                case "Re" ->{
+                case "RE" ->{
                     break;
                 }
                 case "E" ->{
