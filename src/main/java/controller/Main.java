@@ -26,8 +26,8 @@ public class Main {
         }
         int cur_page = 1;
         int totalItems = model.count();
-        int totalPages = (int) Math.ceil((double) totalItems / limite);
         back : do {
+            int totalPages = (int) Math.ceil((double) totalItems / limite);
             View view = new View();
             int count = model.count();
             ResultSet rs = model.selectAll(limite,start);
@@ -40,7 +40,7 @@ public class Main {
             System.out.println("=============================================================================================================");
             System.out.print("Choose Option : ");
             String option = scanner.next();
-            switch (option){
+            switch (option.toUpperCase()){
                 case "F" ->{
                     cur_page=1;
                     start = 0;
@@ -62,7 +62,7 @@ public class Main {
                     if(cur_page != totalPages){
                         cur_page++;
                     }
-                    if(start <totalItems-limite){
+                    if(start < totalItems-limite){
                         start = start+limite;
                         continue back;
                     }else{
@@ -72,14 +72,17 @@ public class Main {
                 }
                 case "L" ->{
                     cur_page = totalPages;
-                    int last = totalItems%limite;
-                    if(limite == 2){
-                        start = totalItems-(totalItems%limite) - 2 ;
-                        continue back;
-                    }else{
+                    if(limite==1){
+                        start = totalItems-1;
+                        System.out.println(start);
+                    }else
+                    if(totalItems%limite ==0){
+                        start = totalItems-(totalItems/limite);
+                        System.out.println("S"+start);
+                    }else {
                         start = totalItems-(totalItems%limite);
-                        continue back;
                     }
+
                 }
                 case "G" ->{
                     System.out.print("Enter page :");
@@ -143,7 +146,7 @@ public class Main {
                     view.search(rs_search);
                     break;
                 }
-                case "Se" ->{
+                case "SE" ->{
                     System.out.print("Enter number of Row :");
                     String num_row = scanner.next();
                     scanner.nextLine();
@@ -157,23 +160,26 @@ public class Main {
                     try {
                         BufferedReader reader = new BufferedReader(new FileReader("D:\\HRD\\Java_HRD\\Mini\\mini_project\\src\\main\\java\\util\\setRow.txt"));
                         int data = Integer.parseInt(reader.readLine());
+                        System.out.println(data);
                         limite = data;
+                        cur_page =1;
+                        start=0;
                         reader.close();
+                        continue back;
                     } catch (Exception e) {
-                        throw new RuntimeException(e);
+                        System.out.println(e.getMessage());
                     }
-                    continue back;
                 }
-                case "Sa" ->{
+                case "SA" ->{
                     break;
                 }
-                case "Un" ->{
+                case "UN" ->{
                     break;
                 }
-                case "Ba" ->{
+                case "BA" ->{
                     break;
                 }
-                case "Re" ->{
+                case "RE" ->{
                     break;
                 }
                 case "E" ->{

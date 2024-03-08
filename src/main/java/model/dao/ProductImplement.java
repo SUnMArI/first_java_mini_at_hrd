@@ -12,7 +12,7 @@ import java.time.LocalDate;
 public class ProductImplement implements ProductService {
     @Override
     public boolean insert(Product products)  {
-        String insert= "INSERT INTO product_tb(Name,Unit_Price,QTY)\n" +
+        String insert= "INSERT INTO unsave_tb(Name,Unit_Price,QTY)\n" +
                 "VALUES ('" +products.getName()+
                 "'," +products.getUnitPrice()+
                 "," +products.getQty()+
@@ -27,7 +27,12 @@ public class ProductImplement implements ProductService {
     }
     @Override
     public boolean update(int id,Product products) {
-        String update= "UPDATE product_tb SET name = '"+products.getName()+"',unit_price="+products.getUnitPrice()+",qty="+products.getQty()+" WHERE id = "+id+" ";
+        String update= "INSERT INTO unsave_tb(Name,Unit_Price,QTY,product_id)\n" +
+                "VALUES ('" +products.getName()+
+                "'," +products.getUnitPrice()+
+                "," +products.getQty()+
+                "," + id+
+                ")";;
         try(Connection cn = PostgresConnection.connection()){
             Statement st = cn.createStatement();
             st.execute(update);
