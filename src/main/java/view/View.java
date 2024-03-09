@@ -55,49 +55,53 @@ public class View {
         }
     }
     public Product write(){
-        String name;
-        int i =0;
-        do{
-            System.out.print("Enter name : ");
-            name = scanner.nextLine();
-            try {
-                if(model.duplicate(name)){
-                    do {
-                        System.out.println("Duplicate Product Name");
-                        System.out.print("Enter name : ");
-                        name = scanner.nextLine();
-                    }while(model.duplicate(name));
-                }
-            }catch (Exception e){
-                System.out.println(e.getMessage());
-            }
-            if(i>1 && !Validate.validate_pro_name(name)){
+        System.out.print("Enter name : ");
+        String name = scanner.nextLine();
+        if(!Validate.validate_pro_name(name)){
+            do{
                 System.out.println(ANSI_RED+"Don't allow digit"+ANSI_RESET);
+                System.out.print("Enter name : ");
+                name = scanner.nextLine();
+            }while (!Validate.validate_pro_name(name));
+        }
+        try {
+            if(model.duplicate(name)){
+                do {
+                    System.out.println("Duplicate Product Name");
+                    System.out.print("Enter name : ");
+                    name = scanner.nextLine();
+                    if(!Validate.validate_pro_name(name)){
+                        do{
+                            System.out.println(ANSI_RED+"Don't allow digit"+ANSI_RESET);
+                            System.out.print("Enter name : ");
+                            name = scanner.nextLine();
+                        }while (!Validate.validate_pro_name(name));
+                    }
+                }while(model.duplicate(name));
             }
-            i++;
-        }while (!Validate.validate_pro_name(name));
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
 
-        String unit_price;
-        i=0;
-        do{
-            System.out.print("Enter Unit Price : ");
-            unit_price = scanner.nextLine();
-            if(i==1){
+        System.out.print("Enter Unit Price : ");
+        String unit_price = scanner.nextLine();
+        if(!Validate.validate_pro_unitePrice(unit_price)){
+            do{
                 System.out.println(ANSI_RED+"Don't allow to input character"+ANSI_RESET);
-            }
-            i++;
-        }while (!Validate.validate_pro_unitePrice(unit_price));
+                System.out.print("Enter Unit Price : ");
+                unit_price = scanner.nextLine();
+            }while (!Validate.validate_pro_unitePrice(unit_price));
+        }
 
-        String qty;
-        i=0;
-        do{
-            System.out.print("Enter Qty : ");
-            qty = scanner.nextLine();
-            if(i==1){
+        System.out.print("Enter Qty : ");
+        String qty = scanner.nextLine();;
+        if(!Validate.validate_pro_qty(qty)){
+            do{
                 System.out.println(ANSI_RED+"Don't allow to input character"+ANSI_RESET);
-            }
-            i++;
-        }while (!Validate.validate_pro_qty(qty));
+                System.out.print("Enter Qty : ");
+                qty = scanner.nextLine();
+            }while (!Validate.validate_pro_qty(qty));
+        }
 
         Product product = new Product(name,Double.parseDouble(unit_price),Integer.parseInt(qty));
         return product;
@@ -154,49 +158,53 @@ public class View {
         }
     }
     public Product update(int id){
-        int i=0;
-        String name;
-        do{
-            System.out.print("Update product name to : ");
-            name = scanner.nextLine();
-            try {
-                if(model.duplicate_update(name,id)){
-                    do {
-                        System.out.println(ANSI_RED+"Duplicate Product Name"+ANSI_RESET);
-                        System.out.print("Update product name to : ");
-                        name = scanner.nextLine();
-                    }while(model.duplicate_update(name,id));
-                }
-            }catch (Exception e){
-                System.out.println(e.getMessage());
-            }
-            if(i>1 && !Validate.validate_pro_name(name)){
+        System.out.print("Update product name to : ");
+        String name = scanner.nextLine();
+        if(!Validate.validate_pro_name(name)){
+            do{
                 System.out.println(ANSI_RED+"Don't allow digit"+ANSI_RESET);
+                System.out.print("Update product name to : ");
+                name = scanner.nextLine();
+            }while (!Validate.validate_pro_name(name));
+        }
+        try {
+            if(model.duplicate_update(name,id)){
+                do {
+                    System.out.println(ANSI_RED+"Duplicate Product Name"+ANSI_RESET);
+                    System.out.print("Update product name to : ");
+                    name = scanner.nextLine();
+                    if(!Validate.validate_pro_name(name)){
+                        do{
+                            System.out.println(ANSI_RED+"Don't allow digit"+ANSI_RESET);
+                            System.out.print("Update product name to : ");
+                            name = scanner.nextLine();
+                        }while (!Validate.validate_pro_name(name));
+                    }
+                }while(model.duplicate_update(name,id));
             }
-            i++;
-        }while (!Validate.validate_pro_name(name));
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
 
-        String unit_price;
-        int u=0;
-        do{
-            System.out.print("Updat product unit price to : ");
-            unit_price = scanner.nextLine();
-            if(u==1){
+        System.out.print("Updat product unit price to : ");
+        String unit_price = scanner.nextLine();
+        if(!Validate.validate_pro_unitePrice(unit_price)){
+            do{
                 System.out.println(ANSI_RED+"Don't allow to input character"+ANSI_RESET);
-            }
-            u++;
-        }while (!Validate.validate_pro_unitePrice(unit_price));
+                System.out.print("Updat product unit price to : ");
+                unit_price = scanner.nextLine();
+            }while (!Validate.validate_pro_unitePrice(unit_price));
+        }
 
-        String qty;
-        int q=0;
-        do{
-            System.out.print("Updat product qty to : ");
-            qty = scanner.nextLine();
-            if(q==1){
+        System.out.print("Updat product qty to : ");
+        String qty = scanner.nextLine();
+        if(!Validate.validate_pro_qty(qty)){
+            do{
                 System.out.println(ANSI_RED+"Don't allow to input character"+ANSI_RESET);
-            }
-            q++;
-        }while (!Validate.validate_pro_qty(qty));
+                System.out.print("Updat product qty to : ");
+                qty = scanner.nextLine();
+            }while (!Validate.validate_pro_qty(qty));
+        }
 
         Product product = new Product(name,Double.parseDouble(unit_price),Integer.parseInt(qty));
         return product;

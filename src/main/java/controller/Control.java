@@ -32,7 +32,7 @@ public class Control {
         String id = scanner.next();
         if(!model.check_id(id)){
             do {
-                System.out.println("ID not fount");
+                System.out.println(ANSI_RED+"ID not fount"+ANSI_RESET);
                 System.out.print("Enter ID to show product : ");
                 id = scanner.next();
             }while (!model.check_id(id));
@@ -45,7 +45,7 @@ public class Control {
         String id = scanner.next();
         if (!model.check_id(id)){
             do{
-                System.out.println("ID not found!!!");
+                System.out.println(ANSI_RED+"ID not found!!!"+ANSI_RESET);
                 System.out.print("Enter ID to update product : ");
                 id = scanner.next();
             }while (!model.check_id(id));
@@ -88,16 +88,15 @@ public class Control {
         }
     }
     public static void search(){
-        String search;
-        int i=0;
-        do {
-            System.out.print("Enter product name to search : ");
-            search = scanner.next();
-            if(i==1){
+        System.out.print("Enter product name to search : ");
+        String search = scanner.next();
+        if(!Validate.validate_string(search)){
+            do {
                 System.out.println(ANSI_RED+"Allow only String !!!"+ANSI_RESET);
-            }
-            i++;
-        }while (!Validate.validate_string(search));
+                System.out.print("Enter product name to search : ");
+                search = scanner.next();
+            }while (!Validate.validate_string(search));
+        }
 
         ResultSet rs_search = model.search(search);
         view.search(rs_search);

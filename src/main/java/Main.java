@@ -133,17 +133,16 @@ public class Main {
                     Control.search();
                 }
                 case "SE" ->{
-                    String num_row;
-                    int i=0;
-                    do{
-                        System.out.print("Enter number of Row : ");
-                        num_row = scanner.next();
-                        scanner.nextLine();
-                        if(i==1){
+                    System.out.print("Enter number of Row : ");
+                    String num_row = scanner.next();
+                    if(!Validate.validate_set_row(num_row)){
+                        do{
                             System.out.println(ANSI_RED+"Allow only number except 0!!!"+ANSI_RESET);
-                        }
-                        i++;
-                    }while (!Validate.validate_set_row(num_row));
+                            System.out.print("Enter number of Row : ");
+                            num_row = scanner.next();
+                            scanner.nextLine();
+                        }while (!Validate.validate_set_row(num_row));
+                    }
                     try{
                         BufferedWriter writer = new BufferedWriter(new FileWriter("D:\\HRD\\Java_HRD\\Mini\\mini_project\\src\\main\\java\\util\\setRow.txt"));
                         writer.write(num_row);

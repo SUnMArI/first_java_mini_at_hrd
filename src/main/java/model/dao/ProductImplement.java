@@ -66,7 +66,7 @@ public class ProductImplement implements ProductService {
     }
     @Override
     public ResultSet search(String txt) {
-        String search= "SELECT * FROM product_tb WHERE name ILIKE '%"+txt+"%'";
+        String search= "SELECT * FROM product_tb WHERE name ILIKE '%"+txt+"%' ORDER BY id ASC";
         try(Connection cn = PostgresConnection.connection()){
             Statement st = cn.createStatement();
             ResultSet rs = st.executeQuery(search);
