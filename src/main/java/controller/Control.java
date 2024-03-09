@@ -3,6 +3,7 @@ package controller;
 import model.dao.ProductImplement;
 import model.dao.UnSaveImplement;
 import model.dto.Product;
+import util.DuplicationData;
 import util.Validate;
 import view.View;
 
@@ -131,7 +132,10 @@ public class Control {
         ResultSet rs_read = unsave_model.selectAll();
         view.display_unsave(rs_read);
     }
-    public static void backUP(){}
-    public static void restore(){}
-    public static void help(){}
+    public static void backUP(){
+        DuplicationData.backup();
+    }
+    public static void restore(){
+        DuplicationData.recovery();
+    }
 }

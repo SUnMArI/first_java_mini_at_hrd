@@ -54,7 +54,6 @@ public class Main {
                 case "F" ->{
                     cur_page=1;
                     start = 0;
-                    continue back;
                 }
                 case "P" ->{
                     if(cur_page > 1){
@@ -62,10 +61,8 @@ public class Main {
                     }
                     if(start != 0){
                         start = start-limite;
-                        continue back;
                     }else{
                         start = 0;
-                        continue back;
                     }
                 }
                 case "N" ->{
@@ -74,10 +71,8 @@ public class Main {
                     }
                     if(start < totalItems-limite){
                         start = start+limite;
-                        continue back;
                     }else{
                         start = (totalPages - 1) * limite;
-                        continue back;
                     }
                 }
                 case "L" ->{
@@ -121,7 +116,6 @@ public class Main {
                     System.out.print("Press enter for continues....");
                     scanner.nextLine();
                     scanner.nextLine();
-                    break ;
                 }
                 case "U" ->{
                     Control.updateData();
@@ -158,7 +152,6 @@ public class Main {
                         cur_page =1;
                         start=0;
                         reader.close();
-                        continue back;
                     } catch (Exception e) {
                         System.out.println(e.getMessage());
                     }
@@ -173,10 +166,10 @@ public class Main {
                     scanner.nextLine();
                 }
                 case "BA" ->{
-                    break;
+                    Control.backUP();
                 }
                 case "RE" ->{
-                    break;
+                    Control.restore();
                 }
                 case "E" ->{
                     Table tl = new Table(1, BorderStyle.UNICODE_BOX_DOUBLE_BORDER_WIDE, ShownBorders.ALL);

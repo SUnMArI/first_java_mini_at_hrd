@@ -12,11 +12,9 @@ public class Product {
     private LocalDate importedDate;
 
     public Product(String name, Double unitPrice, Integer qty) {
-//        this.id = id;
         this.name = name;
         this.unitPrice = unitPrice;
         this.qty = qty;
-//        this.importedDate = importedDate;
     }
 
     @Override
