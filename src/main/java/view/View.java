@@ -233,7 +233,7 @@ public class View {
             System.out.println(t.render());
             System.out.print("Press enter for continues....");
             scanner.nextLine();
-            scanner.nextLine();
+//            scanner.nextLine();
         }catch (SQLException e){
             System.out.println(ANSI_RED+"Product not found"+ANSI_RESET);
         }
