@@ -1,6 +1,10 @@
 import controller.Control;
 import model.dao.ProductImplement;
 import model.dto.Product;
+import org.nocrala.tools.texttablefmt.BorderStyle;
+import org.nocrala.tools.texttablefmt.CellStyle;
+import org.nocrala.tools.texttablefmt.ShownBorders;
+import org.nocrala.tools.texttablefmt.Table;
 import util.Validate;
 import view.View;
 
@@ -10,6 +14,12 @@ import java.sql.SQLException;
 import java.util.Scanner;
 
 public class Main {
+    public static final String ANSI_RESET = "\u001B[0m";
+    public static final String ANSI_RED = "\u001B[31m";
+    public static final String ANSI_GREEN = "\u001B[32m";
+    public static final String ANSI_YELLOW = "\u001B[33m";
+    public static final String ANSI_BLUE = "\u001B[34m";
+    static CellStyle center = new CellStyle(CellStyle.HorizontalAlign.CENTER);
     static Scanner scanner = new Scanner(System.in);
     public static void main(String[] args) {
         ProductImplement model = new ProductImplement();
@@ -84,16 +94,22 @@ public class Main {
 
                 }
                 case "G" ->{
-                    System.out.print("Enter page :");
-                    int page_re = scanner.nextInt();
-                    scanner.nextLine();
-                    if(page_re <= totalPages){
-                        cur_page = page_re;
-                        start = (page_re - 1) * limite;
-                        continue back;
+                    String page_re;
+                    int i=0;
+                    do {
+                        System.out.print("Enter page :");
+                        page_re = scanner.next();
+                        scanner.nextLine();
+                        if(i==1){
+                            System.out.println(ANSI_RED+"Allow only Number!!!"+ANSI_RESET);
+                        }
+                        i++;
+                    }while (!Validate.validate_only_number(page_re));
+                    if(Integer.parseInt(page_re) <= totalPages){
+                        cur_page = Integer.parseInt(page_re);
+                        start = (Integer.parseInt(page_re) - 1) * limite;
                     }else{
                         System.out.println("Out off limite page");
-                        break;
                     }
                 }
                 case "W" ->{
@@ -116,9 +132,17 @@ public class Main {
                     Control.search();
                 }
                 case "SE" ->{
-                    System.out.print("Enter number of Row :");
-                    String num_row = scanner.next();
-                    scanner.nextLine();
+                    String num_row;
+                    int i=0;
+                    do{
+                        System.out.print("Enter number of Row : ");
+                        num_row = scanner.next();
+                        scanner.nextLine();
+                        if(i>1){
+                            System.out.println(ANSI_RED+"Allow only number except 0!!!"+ANSI_RESET);
+                        }
+                        i++;
+                    }while (!Validate.validate_set_row(num_row));
                     try{
                         BufferedWriter writer = new BufferedWriter(new FileWriter("D:\\HRD\\Java_HRD\\Mini\\mini_project\\src\\main\\java\\util\\setRow.txt"));
                         writer.write(num_row);
@@ -146,7 +170,6 @@ public class Main {
                     Control.unsave();
                     System.out.print("Press enter for continues....");
                     scanner.nextLine();
-                    scanner.nextLine();
                 }
                 case "BA" ->{
                     break;
@@ -155,7 +178,15 @@ public class Main {
                     break;
                 }
                 case "E" ->{
-                    break;
+                    Table tl = new Table(1, BorderStyle.UNICODE_BOX_DOUBLE_BORDER_WIDE, ShownBorders.ALL);
+                    tl.setColumnWidth(0,51,51);
+                    String exit = ANSI_BLUE+"================= "+ANSI_RESET+ANSI_GREEN+" Good Bye!"+ANSI_RESET+ANSI_BLUE+" =================";
+                    tl.addCell(exit, center);
+                    System.out.println(tl.render());
+                    return;
+                }
+                default -> {
+                    System.out.println(ANSI_YELLOW+"Input not match!!!"+ANSI_RESET);
                 }
             }
         }while (true);

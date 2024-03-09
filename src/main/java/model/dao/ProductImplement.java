@@ -46,7 +46,7 @@ public class ProductImplement implements ProductService {
         String delete= "DELETE FROM product_tb WHERE id = "+del_id+" ";
         try(Connection cn = PostgresConnection.connection()){
             Statement st = cn.createStatement();
-            ResultSet rs = st.executeQuery(delete);
+            st.executeQuery(delete);
             return true;
         }catch (SQLException ex){
             System.out.println(ex.getMessage());
@@ -104,7 +104,41 @@ public class ProductImplement implements ProductService {
     }
     @Override
     public boolean duplicate(String txt){
-        String duplicate= "SELECT name FROM product_tb WHERE LOWER(name) = '"+txt+"' AND id != 0";
+        String duplicate= "SELECT name FROM product_tb WHERE LOWER(name) = LOWER('"+txt+"')";
+        try(Connection cn = PostgresConnection.connection()){
+            Statement st = cn.createStatement();
+            ResultSet dupli_data = st.executeQuery(duplicate);
+            boolean rs = dupli_data.next();
+            if (rs){
+                return true;
+            }else {
+                return false;
+            }
+        }catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return false;
+    }
+    public boolean duplicate_update(String txt,int id){
+        String duplicate= "SELECT name FROM product_tb WHERE LOWER(name) = LOWER('"+txt+"') AND id != "+id+" ";
+        try(Connection cn = PostgresConnection.connection()){
+            Statement st = cn.createStatement();
+            ResultSet dupli_data = st.executeQuery(duplicate);
+            boolean rs = dupli_data.next();
+            if (rs){
+                return true;
+            }else {
+                return false;
+            }
+        }catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return false;
+    }
+
+    @Override
+    public boolean check_id(int id){
+        String duplicate= "SELECT * FROM product_tb WHERE id = "+id+" ";
         try(Connection cn = PostgresConnection.connection()){
             Statement st = cn.createStatement();
             ResultSet dupli_data = st.executeQuery(duplicate);

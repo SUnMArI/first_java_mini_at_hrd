@@ -20,7 +20,6 @@ public class View {
     public static final String ANSI_BLUE = "\u001B[34m";
     public static final String ANSI_VIOLETS = "\u001b[36m";
     static Scanner scanner = new Scanner(System.in);
-    static Validate validate = new Validate();
     static CellStyle numberStyle = new CellStyle(CellStyle.HorizontalAlign.CENTER);
     static ProductImplement model = new ProductImplement();
     public  void display(ResultSet resultSet, int limit,int count,int cur_page){
@@ -56,23 +55,50 @@ public class View {
         }
     }
     public Product write(){
-        System.out.print("Enter name : ");
-        String name = scanner.nextLine();
-        try {
-            if(model.duplicate(name)){
-                do {
-                    System.out.println("Duplicate Product Name");
-                    System.out.print("Enter name : ");
-                    name = scanner.nextLine();
-                }while(model.duplicate(name));
+        String name;
+        int i =0;
+        do{
+            System.out.print("Enter name : ");
+            name = scanner.nextLine();
+            try {
+                if(model.duplicate(name)){
+                    do {
+                        System.out.println("Duplicate Product Name");
+                        System.out.print("Enter name : ");
+                        name = scanner.nextLine();
+                    }while(model.duplicate(name));
+                }
+            }catch (Exception e){
+                System.out.println(e.getMessage());
             }
-        }catch (Exception e){
-            System.out.println(e.getMessage());
-        }
-        System.out.print("Enter Unit Price : ");
-        String unit_price = scanner.nextLine();
-        System.out.print("Enter Qty : ");
-        String qty = scanner.nextLine();
+            if(i>1 && !Validate.validate_pro_name(name)){
+                System.out.println(ANSI_RED+"Don't allow digit"+ANSI_RESET);
+            }
+            i++;
+        }while (!Validate.validate_pro_name(name));
+
+        String unit_price;
+        i=0;
+        do{
+            System.out.print("Enter Unit Price : ");
+            unit_price = scanner.nextLine();
+            if(i==1){
+                System.out.println(ANSI_RED+"Don't allow to input character"+ANSI_RESET);
+            }
+            i++;
+        }while (!Validate.validate_pro_unitePrice(unit_price));
+
+        String qty;
+        i=0;
+        do{
+            System.out.print("Enter Qty : ");
+            qty = scanner.nextLine();
+            if(i==1){
+                System.out.println(ANSI_RED+"Don't allow to input character"+ANSI_RESET);
+            }
+            i++;
+        }while (!Validate.validate_pro_qty(qty));
+
         Product product = new Product(name,Double.parseDouble(unit_price),Integer.parseInt(qty));
         return product;
     }
@@ -90,7 +116,6 @@ public class View {
             System.out.println(t.render());
         }catch (SQLException e){
             System.out.println("Product Not Found !!!");
-            return;
         }
     }
     public void display_unsave(ResultSet rs){
@@ -128,13 +153,51 @@ public class View {
             System.out.println(ex.getMessage());
         }
     }
-    public Product update(){
-        System.out.print("Updat product name to : ");
-        String name = scanner.nextLine();
-        System.out.print("Updat product unit price to : ");
-        String unit_price = scanner.nextLine();
-        System.out.print("Updat product qty to : ");
-        String qty = scanner.nextLine();
+    public Product update(int id){
+        int i=0;
+        String name;
+        do{
+            System.out.print("Update product name to : ");
+            name = scanner.nextLine();
+            try {
+                if(model.duplicate_update(name,id)){
+                    do {
+                        System.out.println("Duplicate Product Name");
+                        System.out.print("Update product name to : ");
+                        name = scanner.nextLine();
+                    }while(model.duplicate_update(name,id));
+                }
+            }catch (Exception e){
+                System.out.println(e.getMessage());
+            }
+            if(i>1 && !Validate.validate_pro_name(name)){
+                System.out.println(ANSI_RED+"Don't allow digit"+ANSI_RESET);
+            }
+            i++;
+        }while (!Validate.validate_pro_name(name));
+
+        String unit_price;
+        i=0;
+        do{
+            System.out.print("Updat product unit price to : ");
+            unit_price = scanner.nextLine();
+            if(i==1){
+                System.out.println(ANSI_RED+"Don't allow to input character"+ANSI_RESET);
+            }
+            i++;
+        }while (!Validate.validate_pro_unitePrice(unit_price));
+
+        String qty;
+        i=0;
+        do{
+            System.out.print("Updat product qty to : ");
+            qty = scanner.nextLine();
+            if(i==1){
+                System.out.println(ANSI_RED+"Don't allow to input character"+ANSI_RESET);
+            }
+            i++;
+        }while (!Validate.validate_pro_qty(qty));
+
         Product product = new Product(name,Double.parseDouble(unit_price),Integer.parseInt(qty));
         return product;
     }
@@ -159,25 +222,6 @@ public class View {
                 t.addCell(ANSI_RED +rs.getString("qty") + ANSI_RESET,numberStyle);
                 t.addCell(ANSI_RED +rs.getString("imported_date")+ ANSI_RESET,numberStyle);
             }
-            System.out.println(t.render());
-            System.out.print("Press enter for continues....");
-            scanner.nextLine();
-            scanner.nextLine();
-        }catch (SQLException e){
-            System.out.println(e.getMessage());
-        }
-    }
-    public void delete(ResultSet rs){
-        try {
-            rs.next();
-            Table t = new Table(1, BorderStyle.UNICODE_BOX_HEAVY_BORDER, ShownBorders.ALL);
-            t.setColumnWidth(0, 40, 40);
-            t.addCell(ANSI_BLUE + "Product" + ANSI_RESET,numberStyle);
-            t.addCell(ANSI_GREEN + "ID : "+rs.getInt("id")+" " + ANSI_RESET);
-            t.addCell(ANSI_GREEN + "Name : "+rs.getString("name")+" " + ANSI_RESET);
-            t.addCell(ANSI_YELLOW + "Unit Price : "+rs.getInt("unit_price")+" "+ ANSI_RESET);
-            t.addCell(ANSI_RED + "QTY : "+rs.getString("qty")+" " + ANSI_RESET);
-            t.addCell(ANSI_RED + "Imported Date : "+rs.getString("imported_date")+" " + ANSI_RESET);
             System.out.println(t.render());
             System.out.print("Press enter for continues....");
             scanner.nextLine();

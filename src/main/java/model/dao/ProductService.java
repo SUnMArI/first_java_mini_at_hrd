@@ -14,4 +14,6 @@ public interface ProductService {
     ResultSet view (String views) throws SQLException;
     int count() throws SQLException;
     boolean duplicate(String txt) throws SQLException;
+    boolean duplicate_update(String txt,int id) throws SQLException;
+    boolean check_id(int id) throws SQLException;
 }
