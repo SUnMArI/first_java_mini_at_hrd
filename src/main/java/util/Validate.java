@@ -14,7 +14,7 @@ public class Validate {
            return Pattern.matches("^[0-9]+$",input);
     }
     public static boolean validate_set_row(String input) {
-        return Pattern.matches("^[1-9]+$",input);
+        return Pattern.matches("^(?=.*[1-9])\\d*$",input);
     }
     public static boolean validate_only_number(String input) {
         return Pattern.matches("^[0-9]+$",input);

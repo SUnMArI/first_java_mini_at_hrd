@@ -19,6 +19,7 @@ public class Main {
     public static final String ANSI_GREEN = "\u001B[32m";
     public static final String ANSI_YELLOW = "\u001B[33m";
     public static final String ANSI_BLUE = "\u001B[34m";
+    public static final String ANSI_VIOLETS = "\u001b[36m";
     static CellStyle center = new CellStyle(CellStyle.HorizontalAlign.CENTER);
     static Scanner scanner = new Scanner(System.in);
     public static void main(String[] args) {
@@ -138,7 +139,7 @@ public class Main {
                         System.out.print("Enter number of Row : ");
                         num_row = scanner.next();
                         scanner.nextLine();
-                        if(i>1){
+                        if(i==1){
                             System.out.println(ANSI_RED+"Allow only number except 0!!!"+ANSI_RESET);
                         }
                         i++;
@@ -170,6 +171,7 @@ public class Main {
                     Control.unsave();
                     System.out.print("Press enter for continues....");
                     scanner.nextLine();
+                    scanner.nextLine();
                 }
                 case "BA" ->{
                     break;
@@ -180,13 +182,16 @@ public class Main {
                 case "E" ->{
                     Table tl = new Table(1, BorderStyle.UNICODE_BOX_DOUBLE_BORDER_WIDE, ShownBorders.ALL);
                     tl.setColumnWidth(0,51,51);
-                    String exit = ANSI_BLUE+"================= "+ANSI_RESET+ANSI_GREEN+" Good Bye!"+ANSI_RESET+ANSI_BLUE+" =================";
+                    String exit = ANSI_GREEN+"================= "+ANSI_RESET+ANSI_VIOLETS+" Good Bye!"+ANSI_RESET+ANSI_GREEN+" =================";
                     tl.addCell(exit, center);
                     System.out.println(tl.render());
                     return;
                 }
                 default -> {
                     System.out.println(ANSI_YELLOW+"Input not match!!!"+ANSI_RESET);
+                    System.out.print("Press enter for continues....");
+                    scanner.nextLine();
+                    scanner.nextLine();
                 }
             }
         }while (true);

@@ -35,20 +35,20 @@ public class View {
         t.setColumnWidth(4, 25, 30);
         t.addCell(ANSI_BLUE + "Product List" + ANSI_RESET, numberStyle,5);
         t.addCell(ANSI_BLUE + "ID" + ANSI_RESET, numberStyle);
-        t.addCell(ANSI_GREEN + "Product Name" + ANSI_RESET, numberStyle);
-        t.addCell(ANSI_YELLOW + "Unit Price" + ANSI_RESET, numberStyle);
-        t.addCell(ANSI_RED + "QTY" + ANSI_RESET, numberStyle);
-        t.addCell(ANSI_RED + "Imported Date" + ANSI_RESET, numberStyle);
+        t.addCell(ANSI_BLUE + "Product Name" + ANSI_RESET, numberStyle);
+        t.addCell(ANSI_BLUE + "Unit Price" + ANSI_RESET, numberStyle);
+        t.addCell(ANSI_BLUE + "QTY" + ANSI_RESET, numberStyle);
+        t.addCell(ANSI_BLUE + "Imported Date" + ANSI_RESET, numberStyle);
         try {
             while (resultSet.next()) {
-                t.addCell(ANSI_BLUE + resultSet.getInt("id") + ANSI_RESET, numberStyle);
+                t.addCell(ANSI_GREEN + resultSet.getInt("id") + ANSI_RESET, numberStyle);
                 t.addCell(ANSI_GREEN + resultSet.getString("name") + ANSI_RESET, numberStyle);
-                t.addCell(ANSI_YELLOW + resultSet.getString("unit_price") + ANSI_RESET, numberStyle);
-                t.addCell(ANSI_RED + resultSet.getString("qty") + ANSI_RESET, numberStyle);
-                t.addCell(ANSI_RED + resultSet.getString("imported_date") + ANSI_RESET, numberStyle);
+                t.addCell(ANSI_GREEN + resultSet.getString("unit_price") + ANSI_RESET, numberStyle);
+                t.addCell(ANSI_GREEN + resultSet.getString("qty") + ANSI_RESET, numberStyle);
+                t.addCell(ANSI_GREEN + resultSet.getString("imported_date") + ANSI_RESET, numberStyle);
             }
-            t.addCell(ANSI_RED + "Page "+current_page+" : "+totalPages + ANSI_RESET, numberStyle,2);
-            t.addCell(ANSI_RED + "Total Record "+count+" " + ANSI_RESET, numberStyle,3);
+            t.addCell(ANSI_BLUE + "Page "+current_page+" : "+totalPages + ANSI_RESET, numberStyle,2);
+            t.addCell(ANSI_BLUE + "Total Record "+count+" " + ANSI_RESET, numberStyle,3);
             System.out.println(t.render());
         }catch (Exception ex){
             System.out.println(ex.getMessage());
@@ -110,12 +110,12 @@ public class View {
             t.addCell(ANSI_BLUE + "Product" + ANSI_RESET,numberStyle);
             t.addCell(ANSI_GREEN + "ID : "+rs.getInt("id")+" " + ANSI_RESET);
             t.addCell(ANSI_GREEN + "Name : "+rs.getString("name")+" " + ANSI_RESET);
-            t.addCell(ANSI_YELLOW + "Unit Price : "+rs.getInt("unit_price")+" "+ ANSI_RESET);
-            t.addCell(ANSI_RED + "QTY : "+rs.getString("qty")+" " + ANSI_RESET);
-            t.addCell(ANSI_RED + "Imported Date : "+rs.getString("imported_date")+" " + ANSI_RESET);
+            t.addCell(ANSI_GREEN + "Unit Price : "+rs.getInt("unit_price")+" "+ ANSI_RESET);
+            t.addCell(ANSI_GREEN + "QTY : "+rs.getString("qty")+" " + ANSI_RESET);
+            t.addCell(ANSI_GREEN + "Imported Date : "+rs.getString("imported_date")+" " + ANSI_RESET);
             System.out.println(t.render());
         }catch (SQLException e){
-            System.out.println("Product Not Found !!!");
+            System.out.println(ANSI_RED+"Product Not Found !!!"+ANSI_RESET);
         }
     }
     public void display_unsave(ResultSet rs){
@@ -127,24 +127,24 @@ public class View {
         t.setColumnWidth(4, 25, 30);
         t.setColumnWidth(5, 25, 30);
         t.addCell(ANSI_BLUE + "Unsave List" + ANSI_RESET, numberStyle,6);
-        t.addCell(ANSI_BLUE + "ID" + ANSI_RESET, numberStyle);
+        t.addCell(ANSI_GREEN + "ID" + ANSI_RESET, numberStyle);
         t.addCell(ANSI_GREEN + "Product Name" + ANSI_RESET, numberStyle);
-        t.addCell(ANSI_YELLOW + "Unit Price" + ANSI_RESET, numberStyle);
-        t.addCell(ANSI_RED + "QTY" + ANSI_RESET, numberStyle);
-        t.addCell(ANSI_RED + "Imported Date" + ANSI_RESET, numberStyle);
-        t.addCell(ANSI_RED + "Status" + ANSI_RESET, numberStyle);
+        t.addCell(ANSI_GREEN + "Unit Price" + ANSI_RESET, numberStyle);
+        t.addCell(ANSI_GREEN + "QTY" + ANSI_RESET, numberStyle);
+        t.addCell(ANSI_GREEN + "Imported Date" + ANSI_RESET, numberStyle);
+        t.addCell(ANSI_GREEN + "Status" + ANSI_RESET, numberStyle);
         try {
             while (rs.next()) {
-                t.addCell(ANSI_BLUE + rs.getInt("id") + ANSI_RESET, numberStyle);
+                t.addCell(ANSI_GREEN + rs.getInt("id") + ANSI_RESET, numberStyle);
                 t.addCell(ANSI_GREEN + rs.getString("name") + ANSI_RESET, numberStyle);
-                t.addCell(ANSI_YELLOW + rs.getString("unit_price") + ANSI_RESET, numberStyle);
-                t.addCell(ANSI_RED + rs.getString("qty") + ANSI_RESET, numberStyle);
-                t.addCell(ANSI_RED + rs.getString("imported_date") + ANSI_RESET, numberStyle);
+                t.addCell(ANSI_GREEN + rs.getString("unit_price") + ANSI_RESET, numberStyle);
+                t.addCell(ANSI_GREEN + rs.getString("qty") + ANSI_RESET, numberStyle);
+                t.addCell(ANSI_GREEN + rs.getString("imported_date") + ANSI_RESET, numberStyle);
                 int pro_id = rs.getInt("product_id");
                 if( pro_id != 0){
                     t.addCell(ANSI_RED + "Update" + ANSI_RESET, numberStyle);
                 }else{
-                    t.addCell(ANSI_RED + "Insert" + ANSI_RESET, numberStyle);
+                    t.addCell(ANSI_YELLOW + "Insert" + ANSI_RESET, numberStyle);
                 }
             }
             System.out.println(t.render());
@@ -162,7 +162,7 @@ public class View {
             try {
                 if(model.duplicate_update(name,id)){
                     do {
-                        System.out.println("Duplicate Product Name");
+                        System.out.println(ANSI_RED+"Duplicate Product Name"+ANSI_RESET);
                         System.out.print("Update product name to : ");
                         name = scanner.nextLine();
                     }while(model.duplicate_update(name,id));
@@ -177,25 +177,25 @@ public class View {
         }while (!Validate.validate_pro_name(name));
 
         String unit_price;
-        i=0;
+        int u=0;
         do{
             System.out.print("Updat product unit price to : ");
             unit_price = scanner.nextLine();
-            if(i==1){
+            if(u==1){
                 System.out.println(ANSI_RED+"Don't allow to input character"+ANSI_RESET);
             }
-            i++;
+            u++;
         }while (!Validate.validate_pro_unitePrice(unit_price));
 
         String qty;
-        i=0;
+        int q=0;
         do{
             System.out.print("Updat product qty to : ");
             qty = scanner.nextLine();
-            if(i==1){
+            if(q==1){
                 System.out.println(ANSI_RED+"Don't allow to input character"+ANSI_RESET);
             }
-            i++;
+            q++;
         }while (!Validate.validate_pro_qty(qty));
 
         Product product = new Product(name,Double.parseDouble(unit_price),Integer.parseInt(qty));
@@ -212,22 +212,22 @@ public class View {
             t.addCell(ANSI_BLUE + "Product" + ANSI_RESET,numberStyle,5);
             t.addCell(ANSI_GREEN + "ID" + ANSI_RESET,numberStyle);
             t.addCell(ANSI_GREEN + "Name" + ANSI_RESET,numberStyle);
-            t.addCell(ANSI_YELLOW + "Unit Price"+ ANSI_RESET,numberStyle);
-            t.addCell(ANSI_RED + "QTY" + ANSI_RESET,numberStyle);
-            t.addCell(ANSI_RED + "Imported Date" + ANSI_RESET,numberStyle);
+            t.addCell(ANSI_GREEN + "Unit Price"+ ANSI_RESET,numberStyle);
+            t.addCell(ANSI_GREEN + "QTY" + ANSI_RESET,numberStyle);
+            t.addCell(ANSI_GREEN + "Imported Date" + ANSI_RESET,numberStyle);
             while (rs.next()){
                 t.addCell(ANSI_GREEN + rs.getInt("id")  + ANSI_RESET,numberStyle);
                 t.addCell(ANSI_GREEN +rs.getString("name")+ ANSI_RESET,numberStyle);
-                t.addCell(ANSI_YELLOW +rs.getInt("unit_price")+ ANSI_RESET,numberStyle);
-                t.addCell(ANSI_RED +rs.getString("qty") + ANSI_RESET,numberStyle);
-                t.addCell(ANSI_RED +rs.getString("imported_date")+ ANSI_RESET,numberStyle);
+                t.addCell(ANSI_GREEN +rs.getInt("unit_price")+ ANSI_RESET,numberStyle);
+                t.addCell(ANSI_GREEN +rs.getString("qty") + ANSI_RESET,numberStyle);
+                t.addCell(ANSI_GREEN +rs.getString("imported_date")+ ANSI_RESET,numberStyle);
             }
             System.out.println(t.render());
             System.out.print("Press enter for continues....");
             scanner.nextLine();
             scanner.nextLine();
         }catch (SQLException e){
-            System.out.println(e.getMessage());
+            System.out.println(ANSI_RED+"Product not found"+ANSI_RESET);
         }
     }
 }

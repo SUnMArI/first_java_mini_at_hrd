@@ -137,7 +137,7 @@ public class ProductImplement implements ProductService {
     }
 
     @Override
-    public boolean check_id(int id){
+    public boolean check_id(String id){
         String duplicate= "SELECT * FROM product_tb WHERE id = "+id+" ";
         try(Connection cn = PostgresConnection.connection()){
             Statement st = cn.createStatement();

@@ -15,5 +15,5 @@ public interface ProductService {
     int count() throws SQLException;
     boolean duplicate(String txt) throws SQLException;
     boolean duplicate_update(String txt,int id) throws SQLException;
-    boolean check_id(int id) throws SQLException;
+    boolean check_id(String id) throws SQLException;
 }
